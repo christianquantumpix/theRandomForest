@@ -1,0 +1,3 @@
+.vscode/*
+dist/bundle*
+node_modules/*

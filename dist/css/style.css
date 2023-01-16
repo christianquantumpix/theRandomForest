@@ -1,0 +1,134 @@
+:root {
+    /* Color palette: */
+    --COLOR_MAIN: #367496;
+    --COLOR_SECONDARY_DARK: #3F352C;
+    --COLOR_SECONDARY_LIGHT: #BCA089;
+    --COLOR_TERTIARY: #ffb218;
+    --COLOR_BLACK: #000000;
+    --COLOR_WHITE: #FFFFFF;
+}
+
+html,
+body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    user-select: none; /* Standard */
+    -ms-user-select: none; /* IE10+/Edge */
+    -moz-user-select: none; /* Firefox */
+    -webkit-user-select: none; /* Safari */
+}
+
+.renderCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    z-index: 0;
+}
+
+.loadingScreenContainer {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--COLOR_MAIN);
+
+    z-index: 1;
+}
+
+.loadingScreenContent {
+    position: absolute;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.loaderMascot {
+    position: relative;
+    margin: 0;
+    left: 50%;
+    -ms-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+}
+
+.loaderTextHeadline {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /* font-family: 'Times New Roman', Times, serif; */
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--COLOR_WHITE);
+}
+
+.loaderText {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /* font-family: 'Times New Roman', Times, serif; */
+    font-size: 1.6rem;
+    font-style: italic;
+    text-align: center;
+    color: var(--COLOR_WHITE);
+}
+
+.loadingScreenLampAnimation {
+    width: 4px;
+    height: 196px;
+    background: var(--COLOR_WHITE);
+    margin: auto;
+    position: relative;
+}
+
+.loadingScreenLampAnimation::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    width: 32px;
+    height: 16px;
+    box-sizing: border-box;
+    border: 5px solid var(--COLOR_TERTIARY);
+    border-top: none;
+    border-radius: 0 0 20px 20px;
+    animation: lightup 3s linear infinite;
+}
+
+.loadingScreenLampAnimation::after {
+    content: '';
+    left: 50%;
+    bottom: 0;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 32px;
+    border-radius: 50px 50px 0 0;
+    background: var(--COLOR_WHITE);
+}
+
+@keyframes lightup {
+    0%, 100% {opacity: 0}
+    50% {opacity: 1}
+}
+
+.loading {
+    /* display: block; */
+    visibility: visible;
+    opacity: 1;
+}
+
+.loaded {
+    /* display: none; */
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s .35s, opacity .35s ease-out;
+}
