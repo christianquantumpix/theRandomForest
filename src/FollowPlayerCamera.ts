@@ -64,7 +64,7 @@ export class FollowPlayerCamera {
         //let distance = Math.sqrt(distanceSquared);
         let scalingFactor = 1;
 
-        // Disgusting formula i cam up with: 
+        // Disgusting formula i came up with: 
         let lerpFactor = (1 - FollowPlayerCamera.CAMERA_DELAY) * (1 - (1 / (distanceSquared + 1))) * scalingFactor;
         
         if(lerpFactor > FollowPlayerCamera.MOVEMENT_THRESHOLD) {

@@ -1,6 +1,6 @@
 import { Engine } from "@babylonjs/core/Engines/engine";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
-import { Scene, UniversalCamera } from "@babylonjs/core";
+import { MeshBuilder, Scene, UniversalCamera } from "@babylonjs/core";
 import { AdvancedDynamicTexture } from "@babylonjs/gui/2D/advancedDynamicTexture";
 import { Button } from "@babylonjs/gui/2D/controls/button";
 import { Control } from "@babylonjs/gui/2D/controls/control";
@@ -13,6 +13,7 @@ import { PlayerInput } from "./InputController";
 import "@babylonjs/core/Debug/debugLayer";
 import "@babylonjs/inspector";
 import "@babylonjs/loaders/glTF";
+import { Companion } from "./companion";
 
 enum State { START = 0, GAME = 1, LOSE = 2, CUTSCENE = 3 }
 
@@ -188,8 +189,9 @@ export class App {
             }
         );
 
-        
-
+        let companionMesh = MeshBuilder.CreateSphere("companion", {}, this._sceneGame);
+        let companion = new Companion(this._sceneGame, companionMesh, this._player);
+        companion.followPlayer();
     }
 
     private async _initializeGameAsync(scene: Scene): Promise<void> {
