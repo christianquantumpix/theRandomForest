@@ -13,7 +13,7 @@ import { PlayerInput } from "./InputController";
 import "@babylonjs/core/Debug/debugLayer";
 import "@babylonjs/inspector";
 import "@babylonjs/loaders/glTF";
-import { Companion } from "./companion";
+import { Companion } from "./Companion";
 
 enum State { START = 0, GAME = 1, LOSE = 2, CUTSCENE = 3 }
 
@@ -179,7 +179,6 @@ export class App {
         const environment = new Environment(this._sceneGame);
         this._environment = environment;
 
-        
         let garbagefck = await this._player.loadCharacter(this._sceneGame); //environment
         let fck = await this._environment.load().then(
             () => {
@@ -190,8 +189,12 @@ export class App {
         );
 
         let companionMesh = MeshBuilder.CreateSphere("companion", {}, this._sceneGame);
-        let companion = new Companion(this._sceneGame, companionMesh, this._player);
+        let companion = new Companion(this._sceneGame, companionMesh, this._player, new Vector3(0, 1, 0));
         companion.followPlayer();
+
+        window.setTimeout(() => {
+            companion.dispose();
+        }, 150000);
     }
 
     private async _initializeGameAsync(scene: Scene): Promise<void> {
