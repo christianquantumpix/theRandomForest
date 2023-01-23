@@ -17,7 +17,7 @@ export class FollowPlayerCamera {
     private static readonly FOV: number = Math.PI / 6;
     private static readonly Y_OFFSET: number = 4;
     private static readonly Z_OFFSET: number = -35;
-    private static readonly CAMERA_DELAY: number = .9;
+    private static readonly DELAY: number = .9;
     private static readonly ORIGINAL_TILT: Vector3 = new Vector3(0, 0, 0);
     private static readonly MOVEMENT_THRESHOLD: number = 0.005;
 
@@ -65,12 +65,16 @@ export class FollowPlayerCamera {
         let scalingFactor = 1;
 
         // Disgusting formula i came up with: 
-        let lerpFactor = (1 - FollowPlayerCamera.CAMERA_DELAY) * (1 - (1 / (distanceSquared + 1))) * scalingFactor;
+        let lerpFactor = (1 - FollowPlayerCamera.DELAY) * (1 - (1 / (distanceSquared + 1))) * scalingFactor;
         
         if(lerpFactor > FollowPlayerCamera.MOVEMENT_THRESHOLD) {
             this._camRoot.position = Vector3.Lerp(this._camRoot.position, new Vector3(this._player.mesh.position.x, centerPlayer, this._player.mesh.position.z), lerpFactor);
+            
+            // For some obscure reason this doesn't get the same results. 
+            // Vector3.LerpToRef(this._camRoot.position, new Vector3(this._player.mesh.position.x, centerPlayer, this._player.mesh.position.z), lerpFactor, this._camRoot.position);
         }
         
+        // Neither does this: 
         // this._camRoot.position.x = Scalar.Lerp(this._camRoot.position.x, this._player.mesh.position.x, 1 - FollowPlayerCamera.CAMERA_DELAY);
         // this._camRoot.position.y = Scalar.Lerp(this._camRoot.position.y, centerPlayer, 1 - FollowPlayerCamera.CAMERA_DELAY);
         // this._camRoot.position.z = Scalar.Lerp(this._camRoot.position.z, this._player.mesh.position.z, 1 - FollowPlayerCamera.CAMERA_DELAY);

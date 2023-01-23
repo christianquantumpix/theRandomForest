@@ -33,11 +33,9 @@ export class App {
     private _canvas: HTMLCanvasElement;
     private _engine: Engine;
 
-    //Camera stuff
+    // Level stuff
     private _followPositionCamera: FollowPlayerCamera;
-
     private _player: Player;
-
     private _environment: any;
 
     /**
@@ -188,13 +186,13 @@ export class App {
             }
         );
 
-        let companionMesh = MeshBuilder.CreateSphere("companion", {}, this._sceneGame);
+        let companionMesh = MeshBuilder.CreateSphere("companion", { diameter: .5 }, this._sceneGame);
         let companion = new Companion(this._sceneGame, companionMesh, this._player, new Vector3(0, 1, 0));
         companion.followPlayer();
 
-        window.setTimeout(() => {
-            companion.dispose();
-        }, 150000);
+        // window.setTimeout(() => {
+        //     companion.dispose();
+        // }, 150000);
     }
 
     private async _initializeGameAsync(scene: Scene): Promise<void> {
